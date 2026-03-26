@@ -67,8 +67,7 @@ join projects
 on employees.emp_id = projects.emp_id
 where employees.department = 'IT';
 
-select *
-from projects
+select * from projects
 where project_budget > 100000;
 
 select employees.emp_name, projects.project_name
