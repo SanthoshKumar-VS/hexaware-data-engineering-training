@@ -68,8 +68,7 @@ join enrollments
 on students.student_id = enrollments.student_id
 where students.city = 'Hyderabad';
 
-select *
-from enrollments
+select * from enrollments
 where fee > 6000;
 
 select students.student_name, count(enrollments.course_name)
