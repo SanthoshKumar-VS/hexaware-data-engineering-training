@@ -1,0 +1,191 @@
+db.customers.find()
+
+db.products.find()
+
+db.orders.find()
+
+db.customers.find({ city: "Hyderabad" })
+
+db.products.find({ category: "Electronics" })
+
+db.products.find({ price: { $gt: 30000 } })
+
+db.orders.find({ quantity: { $gt: 1 } })
+
+db.products.find().sort({ price: -1 })
+
+db.customers.find().sort({ name: 1 })
+
+db.orders.countDocuments()
+
+
+db.products.aggregate([
+  { $group: { _id: null, avgPrice: { $avg: "$price" } } }
+])
+
+db.products.aggregate([
+  { $group: { _id: null, maxPrice: { $max: "$price" } } }
+])
+
+
+db.orders.aggregate([
+  { $group: { _id: "$product_id", totalQty: { $sum: "$quantity" } } }
+])
+
+
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "customers",
+      localField: "customer_id",
+      foreignField: "customer_id",
+      as: "customer"
+    }
+  }
+])
+
+
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "products",
+      localField: "product_id",
+      foreignField: "product_id",
+      as: "product"
+    }
+  }
+])
+
+
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "customers",
+      localField: "customer_id",
+      foreignField: "customer_id",
+      as: "c"
+    }
+  },
+  {
+    $lookup: {
+      from: "products",
+      localField: "product_id",
+      foreignField: "product_id",
+      as: "p"
+    }
+  },
+  { $unwind: "$c" },
+  { $unwind: "$p" },
+  {
+    $project: {
+      _id: 0,
+      customer_name: "$c.name",
+      product_name: "$p.name"
+    }
+  }
+])
+
+
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$product_id",
+      totalQty: { $sum: "$quantity" }
+    }
+  },
+  {
+    $lookup: {
+      from: "products",
+      localField: "_id",
+      foreignField: "product_id",
+      as: "p"
+    }
+  },
+  { $unwind: "$p" },
+  {
+    $project: {
+      _id: 0,
+      product_name: "$p.name",
+      totalQty: 1
+    }
+  }
+])
+
+
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "products",
+      localField: "product_id",
+      foreignField: "product_id",
+      as: "p"
+    }
+  },
+  { $unwind: "$p" },
+  {
+    $group: {
+      _id: "$p.name",
+      totalRevenue: {
+        $sum: { $multiply: ["$quantity", "$p.price"] }
+      }
+    }
+  }
+])
+
+
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "products",
+      localField: "product_id",
+      foreignField: "product_id",
+      as: "p"
+    }
+  },
+  { $unwind: "$p" },
+  {
+    $lookup: {
+      from: "customers",
+      localField: "customer_id",
+      foreignField: "customer_id",
+      as: "c"
+    }
+  },
+  { $unwind: "$c" },
+  {
+    $group: {
+      _id: "$c.name",
+      totalRevenue: {
+        $sum: { $multiply: ["$quantity", "$p.price"] }
+      }
+    }
+  }
+])
+
+
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$product_id",
+      totalSold: { $sum: "$quantity" }
+    }
+  },
+  { $sort: { totalSold: -1 } },
+  { $limit: 1 },
+  {
+    $lookup: {
+      from: "products",
+      localField: "_id",
+      foreignField: "product_id",
+      as: "p"
+    }
+  },
+  { $unwind: "$p" },
+  {
+    $project: {
+      _id: 0,
+      product_name: "$p.name",
+      totalSold: 1
+    }
+  }
+])
