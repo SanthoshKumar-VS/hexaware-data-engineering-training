@@ -1,1 +1,90 @@
+use("library_db")
 
+db.members.insertMany([
+ { member_id: 1, name: "Aarav", city: "Hyderabad", membership_type: "Gold" },
+ { member_id: 2, name: "Priya", city: "Bangalore", membership_type: "Silver" },
+ { member_id: 3, name: "Rahul", city: "Mumbai", membership_type: "Gold" },
+ { member_id: 4, name: "Sneha", city: "Delhi", membership_type: "Silver" },
+ { member_id: 5, name: "Kiran", city: "Hyderabad", membership_type: "Gold" }
+])
+
+db.books.insertMany([
+ { book_id: 101, title: "MongoDB Basics", category: "Database", author: "John Smith", price: 500 },
+ { book_id: 102, title: "Python Fundamentals", category: "Programming", author: "Alice Brown", price: 650 },
+ { book_id: 103, title: "Data Engineering Intro", category: "Data", author: "Mark Lee", price: 800 },
+ { book_id: 104, title: "SQL for Beginners", category: "Database", author: "David Miller", price: 450 },
+ { book_id: 105, title: "Machine Learning Start", category: "AI", author: "Sara Khan", price: 900 }
+])
+
+db.borrowings.insertMany([
+ { borrow_id: 1001, member_id: 1, book_id: 101, days_borrowed: 5, borrow_date: "2026-03-01" },
+ { borrow_id: 1002, member_id: 2, book_id: 102, days_borrowed: 3, borrow_date: "2026-03-02" },
+ { borrow_id: 1003, member_id: 1, book_id: 103, days_borrowed: 7, borrow_date: "2026-03-03" },
+ { borrow_id: 1004, member_id: 3, book_id: 104, days_borrowed: 4, borrow_date: "2026-03-05" },
+ { borrow_id: 1005, member_id: 5, book_id: 105, days_borrowed: 10, borrow_date: "2026-03-07" },
+ { borrow_id: 1006, member_id: 5, book_id: 101, days_borrowed: 2, borrow_date: "2026-03-08" }
+])
+
+db.members.find()
+db.books.find()
+db.borrowings.find()
+
+db.members.find({ city: "Hyderabad" })
+db.books.find({ category: "Database" })
+db.books.find({ price: { $gt: 600 } })
+db.borrowings.find({ days_borrowed: { $gt: 5 } })
+
+db.books.find().sort({ price: -1 })
+db.members.find().sort({ name: 1 })
+
+db.members.countDocuments()
+db.books.countDocuments()
+db.books.countDocuments({ category: "Database" })
+
+db.books.aggregate([{ $group: { _id: null, avgPrice: { $avg: "$price" } } }])
+db.books.aggregate([{ $group: { _id: null, maxPrice: { $max: "$price" } } }])
+db.books.aggregate([{ $group: { _id: null, minPrice: { $min: "$price" } } }])
+db.borrowings.aggregate([{ $group: { _id: "$member_id", totalDays: { $sum: "$days_borrowed" } } }])
+
+db.borrowings.aggregate([{ $lookup: { from: "members", localField: "member_id", foreignField: "member_id", as: "member" } }])
+db.borrowings.aggregate([{ $lookup: { from: "books", localField: "book_id", foreignField: "book_id", as: "book" } }])
+
+db.borrowings.aggregate([
+ { $lookup: { from: "members", localField: "member_id", foreignField: "member_id", as: "m" } },
+ { $unwind: "$m" },
+ { $lookup: { from: "books", localField: "book_id", foreignField: "book_id", as: "b" } },
+ { $unwind: "$b" },
+ { $project: { _id: 0, member_name: "$m.name", book_title: "$b.title" } }
+])
+
+db.borrowings.aggregate([
+ { $group: { _id: "$book_id", totalBorrowed: { $sum: 1 } } },
+ { $lookup: { from: "books", localField: "_id", foreignField: "book_id", as: "book" } },
+ { $unwind: "$book" },
+ { $project: { _id: 0, title: "$book.title", totalBorrowed: 1 } }
+])
+
+db.borrowings.aggregate([{ $group: { _id: "$member_id", count: { $sum: 1 } } }])
+
+db.borrowings.aggregate([
+ { $group: { _id: "$book_id", count: { $sum: 1 } } },
+ { $sort: { count: -1 } },
+ { $limit: 1 }
+])
+
+db.borrowings.aggregate([
+ { $lookup: { from: "books", localField: "book_id", foreignField: "book_id", as: "book" } },
+ { $unwind: "$book" },
+ { $group: { _id: "$book.category", total: { $sum: 1 } } }
+])
+
+db.borrowings.aggregate([
+ { $group: { _id: "$member_id", count: { $sum: 1 } } },
+ { $match: { count: { $gt: 1 } } }
+])
+
+db.members.aggregate([
+ { $lookup: { from: "borrowings", localField: "member_id", foreignField: "member_id", as: "borrowed_list" } },
+ { $project: { _id: 0, name: 1, city: 1, total_borrowed: { $size: "$borrowed_list" } } },
+ { $sort: { total_borrowed: -1 } }
+])
