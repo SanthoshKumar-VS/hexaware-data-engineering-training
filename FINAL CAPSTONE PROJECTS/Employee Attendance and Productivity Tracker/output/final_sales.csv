@@ -1,0 +1,7 @@
+sale_id,product_id,store_id,quantity,sale_date,product_name,category,price,cost,store_name,city,revenue,profit
+1,1,101,2,2026-05-01,Laptop,Electronics,50000,45000,Reliance Store,Mumbai,100000,10000
+2,2,101,5,2026-05-01,Mouse,Electronics,500,300,Reliance Store,Mumbai,2500,1000
+3,4,102,3,2026-05-02,Shoes,Fashion,2000,1500,Dmart,Pune,6000,1500
+4,3,102,4,2026-05-02,Keyboard,Electronics,1000,700,Dmart,Pune,4000,1200
+5,5,103,6,2026-05-03,Tshirt,Fashion,800,500,Big Bazaar,Delhi,4800,1800
+6,1,103,1,2026-05-03,Laptop,Electronics,50000,45000,Big Bazaar,Delhi,50000,5000
