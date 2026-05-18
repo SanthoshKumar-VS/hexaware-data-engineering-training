@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Appointment Management Platform</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fc;
+        }
+        /* HEADER */
+        
+        .header {
+            background: linear-gradient(90deg, #0d6efd, #0056b3);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 18px;
+        }
+        /* CONTAINER */
+        
+        .container {
+            width: 90%;
+            margin: auto;
+            margin-top: 40px;
+        }
+        /* DASHBOARD CARDS */
+        
+        .dashboard {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .card {
+            background: white;
+            width: 320px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .card h2 {
+            color: #0d6efd;
+            margin-bottom: 15px;
+        }
+        
+        .card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .status {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 18px;
+        }
+        /* API SECTION */
+        
+        .api-section {
+            margin-top: 60px;
+        }
+        
+        .api-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #0d6efd;
+            font-size: 32px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        table th {
+            background: #0d6efd;
+            color: white;
+            padding: 15px;
+        }
+        
+        table td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        /* FOOTER */
+        
+        .footer {
+            margin-top: 60px;
+            background: #0d6efd;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        /* RESPONSIVE */
+        
+        @media(max-width:768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div class="header">
+        <h1>Healthcare Appointment Management Platform</h1>
+        <p>DevOps Capstone Project using Flask, GitHub Actions & Trello</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="container">
+
+        <!-- DASHBOARD CARDS -->
+
+        <div class="dashboard">
+
+            <div class="card">
+                <h2>Health Check API</h2>
+
+                <p>
+                    Monitor healthcare appointment service health and system uptime.
+                </p>
+
+                <div class="status">
+                    Service Healthy
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Appointment Status API</h2>
+
+                <p>
+                    Validate and track patient appointment confirmation details.
+                </p>
+
+                <div class="status">
+                    Appointment Confirmed
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Doctor Availability API</h2>
+
+                <p>
+                    Check doctor schedule and appointment availability status.
+                </p>
+
+                <div class="status">
+                    Doctor Available
+                </div>
+            </div>
+
+        </div>
+
+        <!-- API TABLE -->
+
+        <div class="api-section">
+
+            <h2 class="api-title">Available API Endpoints</h2>
+
+            <table>
+
+                <tr>
+                    <th>API Endpoint</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+
+                <tr>
+                    <td>/health</td>
+                    <td>Appointment Service Health Check</td>
+                    <td>Active</td>
+                </tr>
+
+                <tr>
+                    <td>/appointment-status</td>
+                    <td>Patient Appointment Validation</td>
+                    <td>Active</td>
+                </tr>
+
+                <tr>
+                    <td>/doctor-availability</td>
+                    <td>Doctor Availability Tracking</td>
+                    <td>Active</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+        © 2026 Healthcare Appointment Management Platform | DevOps Project
+    </div>
+
+</body>
+
+</html>
