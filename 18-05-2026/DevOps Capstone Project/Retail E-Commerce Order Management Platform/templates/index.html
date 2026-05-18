@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Order Management Platform</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial;
+            background: #f4f7fc;
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #ff6b00, #ff9900);
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .header h1 {
+            font-size: 40px;
+        }
+        
+        .header p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        
+        .container {
+            width: 90%;
+            margin: auto;
+            margin-top: 40px;
+        }
+        
+        .cards {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .card {
+            background: white;
+            width: 320px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .card h2 {
+            color: #ff6b00;
+            margin-bottom: 15px;
+        }
+        
+        .card p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .status {
+            margin-top: 20px;
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .api-section {
+            margin-top: 60px;
+        }
+        
+        .api-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ff6b00;
+            font-size: 32px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        table th {
+            background: #ff6b00;
+            color: white;
+            padding: 15px;
+        }
+        
+        table td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        .footer {
+            margin-top: 60px;
+            background: #ff6b00;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Retail Order Management Platform</h1>
+        <p>DevOps Capstone Project using Flask + GitHub Actions</p>
+    </div>
+
+    <div class="container">
+
+        <div class="cards">
+
+            <div class="card">
+                <h2>Health Check API</h2>
+                <p>Monitor retail order service health status.</p>
+                <div class="status">
+                    Service Healthy
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Order Status API</h2>
+                <p>Track and validate order processing details.</p>
+                <div class="status">
+                    Order Processing
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Inventory API</h2>
+                <p>Verify inventory and stock availability.</p>
+                <div class="status">
+                    Inventory Available
+                </div>
+            </div>
+
+        </div>
+
+        <div class="api-section">
+
+            <h2 class="api-title">Available API Endpoints</h2>
+
+            <table>
+
+                <tr>
+                    <th>API Endpoint</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+
+                <tr>
+                    <td>/health</td>
+                    <td>Order Service Health Check</td>
+                    <td>Active</td>
+                </tr>
+
+                <tr>
+                    <td>/order-status</td>
+                    <td>Order Processing Validation</td>
+                    <td>Active</td>
+                </tr>
+
+                <tr>
+                    <td>/inventory</td>
+                    <td>Inventory Availability Validation</td>
+                    <td>Active</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        © 2026 Retail Order Management Platform | DevOps Project
+    </div>
+
+</body>
+
+</html>
